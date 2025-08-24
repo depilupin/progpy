@@ -1,0 +1,23 @@
+name: Safe PoC - Show System Info
+
+# Use pull_request (safe for untrusted forks)
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  safe-run:
+    runs-on: ubuntu-latest
+    permissions:
+      # No write permissions, completely read-only
+      contents: read
+
+    steps:
+      - name: Checkout base code
+        uses: actions/checkout@v3
+
+      - name: Show current user
+        run: whoami
+
+      - name: Show system info
+        run: uname -a
